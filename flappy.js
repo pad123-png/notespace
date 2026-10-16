@@ -32,9 +32,9 @@
   }
   function start() {
     cancelAnimationFrame(raf); reset(); started = true; running = true; overlay.classList.add("hidden");
-    bird.vy = -5.2; raf = requestAnimationFrame(loop);
+    bird.vy = -4.5; raf = requestAnimationFrame(loop);
   }
-  function flap() { if (!started || !running) { start(); return; } bird.vy = -5.2; }
+  function flap() { if (!started || !running) { start(); return; } bird.vy = -4.5; }
   function endGame() {
     running = false; started = false; cancelAnimationFrame(raf);
     if (score > best) { best = score; scoreLabel.textContent = best; try { localStorage.setItem("notespace-skyhopper-best", String(best)); } catch {} }
@@ -68,7 +68,7 @@
   }
   function loop() {
     if (!running) return;
-    frame++; bird.vy += .29; bird.y += bird.vy;
+    frame++; bird.vy += .18; bird.y += bird.vy;
     const speed = Math.min(3.5, 2.6 + score * .035);
     pipes.forEach(p => { p.x -= speed; if (!p.passed && p.x + pipeWidth < bird.x) { p.passed = true; score++; } });
     if (pipes.length && pipes[0].x + pipeWidth < -10) pipes.shift();
