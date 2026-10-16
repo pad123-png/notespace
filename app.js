@@ -2,7 +2,7 @@
   "use strict";
   const $ = (id) => document.getElementById(id);
   const STORAGE_KEY = "notespace-pwa-v1";
-  const homeView = $("homeView"), editorView = $("editorView");
+  const homeView = $("homeView"), editorView = $("editorView"), gameView = $("gameView");
   const canvas = $("drawCanvas"), ctx = canvas.getContext("2d");
   const paper = $("paper");
   let data = loadData();
@@ -51,14 +51,14 @@
   }
   function openNotebook(id) {
     currentNotebookId = id; currentPageIndex = 0; undoStack = []; redoStack = [];
-    homeView.classList.add("hidden"); editorView.classList.remove("hidden");
+    homeView.classList.add("hidden"); gameView.classList.add("hidden"); editorView.classList.remove("hidden");
     const n = getNotebook(); $("notebookTitle").value = n.name;
     loadPage(); resizeCanvas(); updatePageControls();
   }
   function goHome() {
     if (drawing) finishStroke();
     saveCurrentCanvas();
-    editorView.classList.add("hidden"); homeView.classList.remove("hidden");
+    editorView.classList.add("hidden"); gameView.classList.add("hidden"); homeView.classList.remove("hidden");
     currentNotebookId = null; renderNotebookList();
   }
   function loadPage() {
@@ -204,6 +204,8 @@
   }
 
   $("newNotebookBtn").addEventListener("click", newNotebook);
+  $("openGameBtn").addEventListener("click", () => { editorView.classList.add("hidden"); homeView.classList.add("hidden"); gameView.classList.remove("hidden"); window.skyHopperResize?.(); });
+  $("gameBackBtn").addEventListener("click", () => { gameView.classList.add("hidden"); homeView.classList.remove("hidden"); window.skyHopperPause?.(); });
   $("backBtn").addEventListener("click", goHome);
   $("notebookTitle").addEventListener("input", e => { const n=getNotebook(); if(n){n.name=e.target.value;n.updated=Date.now();saveData();} });
   $("addPageBtn").addEventListener("click", () => { const n=getNotebook(); if(!n)return; saveCurrentCanvas(); n.pages.push(makePage()); currentPageIndex=n.pages.length-1; loadPage(); saveData(); updateHistoryButtons(); });

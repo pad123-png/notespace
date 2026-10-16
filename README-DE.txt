@@ -43,3 +43,7 @@ EINSCHRÄNKUNGEN:
 - Speichern erfolgt lokal im Browser über localStorage; sehr große Notizbücher können den Speicher füllen.
 - Offline-Verfügbarkeit gilt für die App-Dateien, nachdem sie einmal online geladen wurden.
 - Das Google Fonts Stylesheet kann offline nicht nachgeladen werden; die App verwendet dann eine Systemschrift.
+
+NEU: SKY HOPPER MINI-SPIEL
+Auf der Startseite gibt es jetzt den Button „Mini-Spiel: Sky Hopper“. Das Spiel ist lokal in flappy.js umgesetzt und funktioniert auch offline, sobald die aktualisierte Website einmal geladen wurde. Steuerung: Tippen/Klicken oder Leertaste/Pfeil nach oben. Der persönliche Bestwert wird im Browser gespeichert.
+Wenn du die Dateien auf GitHub aktualisierst, lade auch flappy.js hoch und ersetze index.html, styles.css, app.js und sw.js durch die neuen Versionen. Danach die GitHub-Pages-Seite neu laden; bei einer alten Offline-Version kann es nötig sein, die Seite einmal online zu öffnen.
