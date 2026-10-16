@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f0e8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="NoteSpace">
+  <meta name="description" content="Dein persönliches, offlinefähiges digitales Notizbuch.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>NoteSpace</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">N</span><span>NoteSpace</span></div>
+      <div class="top-actions">
+        <span id="saveStatus" class="save-status" aria-live="polite">Bereit</span>
+        <button id="installBtn" class="button subtle hidden" type="button">Installieren</button>
+      </div>
+    </header>
+
+    <main id="homeView" class="home-view">
+      <section class="welcome">
+        <p class="eyebrow">DEIN DIGITALER SCHREIBTISCH</p>
+        <h1>Deine Gedanken.<br><span>Dein Platz.</span></h1>
+        <p class="intro">Ein schlichtes Notizbuch, das auch ohne Internet funktioniert.</p>
+        <button id="newNotebookBtn" class="button primary big" type="button">＋ Neues Notizbuch</button>
+      </section>
+      <section class="notebook-section">
+        <div class="section-heading">
+          <div><p class="eyebrow">LOKAL AUF DIESEM GERÄT</p><h2>Meine Notizbücher</h2></div>
+          <span id="notebookCount" class="count-pill">0</span>
+        </div>
+        <div id="notebookList" class="notebook-grid"></div>
+        <p id="emptyMessage" class="empty-message">Hier ist noch alles leer. Erstelle dein erstes Notizbuch.</p>
+      </section>
+      <p class="local-note"><span aria-hidden="true">🔒</span> Deine Notizen bleiben auf diesem Gerät. Es gibt keine automatische Cloud-Synchronisierung.</p>
+    </main>
+
+    <main id="editorView" class="editor-view hidden">
+      <div class="editor-header">
+        <button id="backBtn" class="button subtle" type="button">← Notizbücher</button>
+        <input id="notebookTitle" class="title-input" aria-label="Notizbuchname" value="Mein Notizbuch" maxlength="80">
+        <div class="page-controls">
+          <button id="prevPageBtn" class="button icon-button" aria-label="Vorherige Seite" type="button">‹</button>
+          <span id="pageLabel">Seite 1 / 1</span>
+          <button id="nextPageBtn" class="button icon-button" aria-label="Nächste Seite" type="button">›</button>
+          <button id="addPageBtn" class="button subtle" type="button">＋ Seite</button>
+        </div>
+      </div>
+
+      <div class="toolbar" role="toolbar" aria-label="Zeichenwerkzeuge">
+        <div class="tool-group">
+          <button class="tool-button active" data-tool="pen" type="button" aria-pressed="true"><span>✎</span> Stift</button>
+          <button class="tool-button" data-tool="marker" type="button" aria-pressed="false"><span>▰</span> Marker</button>
+          <button class="tool-button" data-tool="eraser" type="button" aria-pressed="false"><span>⌫</span> Radierer</button>
+        </div>
+        <div class="tool-group colors" aria-label="Stiftfarbe">
+          <button class="color-dot selected" data-color="#20232b" style="--dot:#20232b" aria-label="Schwarz" type="button"></button>
+          <button class="color-dot" data-color="#2764d8" style="--dot:#2764d8" aria-label="Blau" type="button"></button>
+          <button class="color-dot" data-color="#d74343" style="--dot:#d74343" aria-label="Rot" type="button"></button>
+          <button class="color-dot" data-color="#18845b" style="--dot:#18845b" aria-label="Grün" type="button"></button>
+          <input id="customColor" class="custom-color" type="color" value="#20232b" aria-label="Eigene Farbe">
+        </div>
+        <label class="size-control">Dicke <input id="sizeSlider" type="range" min="1" max="18" value="3"><span id="sizeValue">3</span></label>
+        <label class="paper-control">Papier
+          <select id="paperSelect">
+            <option value="lined">Liniert</option>
+            <option value="blank">Blanko</option>
+            <option value="grid">Kariert</option>
+            <option value="dotted">Punkte</option>
+            <option value="cream">Creme</option>
+          </select>
+        </label>
+        <div class="tool-group history-group">
+          <button id="undoBtn" class="button icon-button" type="button" aria-label="Rückgängig" title="Rückgängig (Strg/⌘ Z)">↶</button>
+          <button id="redoBtn" class="button icon-button" type="button" aria-label="Wiederholen" title="Wiederholen (Strg/⌘ Umschalt Z)">↷</button>
+          <button id="exportBtn" class="button subtle" type="button">PNG exportieren</button>
+          <button id="printBtn" class="button subtle" type="button">Drucken / PDF</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <div class="paper" id="paper">
+          <canvas id="drawCanvas" aria-label="Notizseite"></canvas>
+        </div>
+      </div>
+      <div class="editor-footer">
+        <span>✎ Mit Stift schreiben · Fingerberührungen zeichnen nicht</span>
+        <span id="localSaveHint">Automatisch gespeichert</span>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
