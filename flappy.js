@@ -32,9 +32,9 @@
   }
   function start() {
     cancelAnimationFrame(raf); reset(); started = true; running = true; overlay.classList.add("hidden");
-    bird.vy = -4.5; raf = requestAnimationFrame(loop);
+    bird.vy = -3.5; raf = requestAnimationFrame(loop);
   }
-  function flap() { if (!started || !running) { start(); return; } bird.vy = -4.5; }
+  function flap() { if (!started || !running) { start(); return; } bird.vy = -3.5; }
   function endGame() {
     running = false; started = false; cancelAnimationFrame(raf);
     if (score > best) { best = score; scoreLabel.textContent = best; try { localStorage.setItem("notespace-skyhopper-best", String(best)); } catch {} }
